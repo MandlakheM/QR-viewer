@@ -55,7 +55,7 @@ function App() {
           <>
             <QRCodeSVG
               value={qrData.id} // Only pass the unique QR code value (scannable: 1739951989684)
-              size={256}
+              size={396}
               level={"H"} // High error correction level
             />
             <p>
@@ -73,7 +73,7 @@ function App() {
             <div key={index} style={{ margin: "10px" }}>
               <QRCodeSVG
                 value={guest.eventId} // Only pass the unique event ID value
-                size={256}
+                size={396}
                 level={"H"} // High error correction level
               />
               <p>Event ID: {guest.eventId}</p>
