@@ -7,14 +7,13 @@ function App() {
   const [qrData, setQrData] = useState(null);
   const [guestQR, setGuestQR] = useState([]);
 
-  // Fetch QR Code from the backend
   async function getCode() {
     try {
       const res = await axios.get(
         "https://timemanagementsystemserver.onrender.com/api/QR/get-QRcode"
       );
-      console.log(res.data);
-      setQrData(res.data); // Only store the data portion
+      // console.log(res.data);
+      setQrData(res.data); 
     } catch (error) {
       console.error("Error fetching QR code:", error);
     }
@@ -23,10 +22,10 @@ function App() {
   async function getGuestQRCode() {
     try {
       const res = await axios.get(
-        "https://timemanagementsystemserver.onrender.com/api/guests/all-events"
+        "https://timemanagementsystemserver.onrender.com/api/guests/event-QR"
       );
-      console.log(res.data);
-      setGuestQR(res.data); // Only store the data portion
+      // console.log(res.data);
+      setGuestQR(res.data); 
     } catch (error) {
       console.error("Error fetching QR code:", error);
     }
@@ -35,7 +34,6 @@ function App() {
   useEffect(() => {
     getCode();
     getGuestQRCode();
-    // Auto-refresh QR Code every 24 hours
     const interval = setInterval(getCode, 24 * 60 * 60 * 1000);
 
     return () => clearInterval(interval);
@@ -56,9 +54,9 @@ function App() {
         {qrData ? (
           <>
             <QRCodeSVG
-              value={qrData.id} // Only pass the unique QR code value (scannable: 1739951989684)
+              value={qrData.id} 
               size={396}
-              level={"H"} // High error correction level
+              level={"H"} 
             />
             <p>
               Valid until: {new Date(qrData.validUntil).toLocaleTimeString()}
@@ -73,9 +71,9 @@ function App() {
         {guestQR && (
           <div style={{ margin: "10px" }}>
             <QRCodeSVG
-              value={guestQR.url} // Only pass the unique event ID value
+              value={guestQR.url} 
               size={396}
-              level={"H"} // High error correction level
+              level={"H"} 
             />
             {/* <p>Event ID: {guest.eventId}</p> */}
           </div>
